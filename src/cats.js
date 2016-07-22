@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import RandomJs from 'random-js';
 import easyimage from 'easyimage';
-import streams from 'memory-streams';
 
 const random = new RandomJs(RandomJs.engines.browserCrypto);
 const catPath = process.env.CAT_PATH || '';
@@ -29,7 +28,6 @@ export async function getRandomCat() {
 
 export async function getRandomCatThumb() {
   const fileName = await getCatFileName();
-  const writeStream = fs.createReadStream('myBinaryFile');
   const image = await easyimage.resize({
     src: path.resolve(`${catPath}/${fileName}`),
     dst: path.resolve(`${catPath}/thumb/${fileName}`),
