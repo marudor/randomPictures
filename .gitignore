@@ -1,0 +1,5 @@
+.env
+.DS_STORE
+cats
+lib
+node_modules
