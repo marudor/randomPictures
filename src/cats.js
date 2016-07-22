@@ -17,12 +17,14 @@ async function getCatFileName() {
 
 export async function getRandomCat() {
   const fileName = await getCatFileName();
+  const splitted = fileName.split('.');
+  const type = splitted[splitted.length - 1];
   // $FlowFixMe
-  const file: File = await fs.readFileAsync(path.resolve(`${catPath}/${fileName}`));
+  const file: Buffer = await fs.readFileAsync(path.resolve(`${catPath}/${fileName}`));
   return {
     fileName,
     file,
-    type: file.type,
+    type,
   };
 }
 
@@ -33,11 +35,13 @@ export async function getRandomCatThumb() {
     dst: path.resolve(`${catPath}/thumb/${fileName}`),
     width: 400,
   });
+  const splitted = fileName.split('.');
+  const type = splitted[splitted.length - 1];
   // $FlowFixMe
-  const file: File = await fs.readFileAsync(path.resolve(image.path));
+  const file: Buffer = await fs.readFileAsync(path.resolve(image.path));
   return {
     fileName,
     file,
-    type: file.type,
+    type,
   };
 }

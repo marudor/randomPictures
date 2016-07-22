@@ -12,7 +12,7 @@ Promise.promisifyAll(fs);
 const koa = global.koa = new Koa();
 require('./controller');
 
-koa.use(Bodyparser());
+// koa.use(Bodyparser());
 
 const server = global.server = http.createServer(global.koa.callback());
 
