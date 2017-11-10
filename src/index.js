@@ -2,15 +2,12 @@
 import 'babel-polyfill';
 import Koa from 'koa';
 import Bodyparser from 'koa-bodyparser';
-import Promise from 'bluebird';
 import http from 'http';
 import fs from 'fs';
-
-// $FlowFixMe
-Promise.promisifyAll(fs);
+import Routes from './controller';
 
 const koa = global.koa = new Koa();
-require('./controller');
+koa.use(Routes.routes());
 
 // koa.use(Bodyparser());
 
