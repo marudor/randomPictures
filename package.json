@@ -30,7 +30,8 @@
     "koa-router": "^7.0.1",
     "luxon": "^0.0.16",
     "memory-streams": "^0.1.0",
-    "random-js": "^1.0.8"
+    "random-js": "^1.0.8",
+    "twit": "^2.2.9"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

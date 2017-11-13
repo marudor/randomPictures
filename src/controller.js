@@ -3,6 +3,7 @@ import { getAll, getHash, getRandomCat, getRandomCatThumb } from './cats';
 import KoaRouter from 'koa-router';
 
 const router = new KoaRouter();
+const postUri = process.env.POST_URI || '/hourlycat';
 
 router
   .get('/', async ctx => {
@@ -24,6 +25,17 @@ router
     ctx.body = await getAll();
     ctx.attachment('cats.zip');
     ctx.set('Content-type', 'application/zip');
+  })
+  .post(postUri, async ctx => {
+    if (process.env.ENABLE_TWITTER) {
+      const tweetImage = require('./twitter').tweetImage;
+
+      if (ctx.request.header.apikey !== process.env.API_TOKEN) {
+        ctx.status = 401;
+        return;
+      }
+      await tweetImage();
+    }
   });
 
 export default router;
