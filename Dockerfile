@@ -1,11 +1,10 @@
-FROM node:8
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app/
-COPY yarn.lock /usr/src/app/
-RUN yarn
-COPY src/ /usr/src/app/src/
-COPY .babelrc /usr/src/app/
+FROM node:8-slim
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
+COPY package.json yarn.lock /usr/app/
+RUN yarn --no-cache
+COPY src/ /usr/app/src/
+COPY .babelrc /usr/app/
 ENV NODE_ENV=production
 RUN yarn build
 CMD ["yarn", "start"]
