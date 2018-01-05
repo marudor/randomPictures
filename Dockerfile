@@ -1,4 +1,8 @@
 FROM node:8-slim
+
+RUN apt-get update
+RUN apt-get install imagemagick -y
+
 RUN mkdir -p /usr/app
 WORKDIR /usr/app
 COPY package.json yarn.lock /usr/app/
