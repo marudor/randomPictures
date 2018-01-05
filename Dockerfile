@@ -1,0 +1,11 @@
+FROM node:8
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app/
+COPY yarn.lock /usr/src/app/
+RUN yarn
+COPY src/ /usr/src/app/src/
+COPY .babelrc /usr/src/app/
+ENV NODE_ENV=production
+RUN yarn build
+CMD ["yarn", "start"]

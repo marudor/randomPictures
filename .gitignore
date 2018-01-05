@@ -4,3 +4,6 @@ cats
 lib
 node_modules
 fox/
+yarn-error.log
+docker-compose.yml
+yarn-error.log

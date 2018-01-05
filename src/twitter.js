@@ -13,7 +13,7 @@ const t = new Twit({
 const ALT_TEXT = process.env.ALT_TEXT || 'Image';
 const alt_text = { text: ALT_TEXT };
 
-export async function tweetImage() {
+export default async function tweetImage() {
   try {
     const { fileName, file } = await getRandomCat();
 
@@ -23,11 +23,14 @@ export async function tweetImage() {
       media_id: uploadedCat.data.media_id_string,
       alt_text,
     };
+
     await t.post('media/metadata/create', mediaParams);
     const tweet = await t.post('statuses/update', {
       status: process.env.TWEET_MESSAGE,
       media_ids: [uploadedCat.data.media_id_string],
     });
+
+    // eslint-disable-next-line
     console.log({
       status: process.env.TWEET_MESSAGE,
       mediaIds: uploadedCat.data.media_id_string,
@@ -35,6 +38,7 @@ export async function tweetImage() {
       tweet: tweet.data.id,
     });
   } catch (e) {
+    // eslint-disable-next-line
     console.error(e);
   }
 }

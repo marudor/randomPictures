@@ -1,24 +1,16 @@
 {
-  "sourceMaps": "inline",
-  "comments": false,
+  "presets": [["env", {
+      "targets": {
+        "node": 8,
+      },
+      "loose": true,
+      "useBuiltIns": true,
+      "modules": "commonjs"
+      }],
+      "flow"
+    ],
   "plugins": [
-    "transform-class-properties",
-    "transform-export-extensions",
     "transform-object-rest-spread",
-    "transform-async-to-generator",
-    "transform-es2015-modules-commonjs",
-    "transform-flow-strip-types",
-    "syntax-flow",
-    "syntax-trailing-function-commas"
-  ],
-  "env": {
-    "production": {
-      "compact": true,
-      "sourceMaps": false,
-      "plugins": [
-        "transform-remove-debugger",
-        "transform-remove-console"
-      ]
-    }
-  }
+    "transform-class-properties",
+  ]
 }

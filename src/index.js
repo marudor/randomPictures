@@ -5,6 +5,7 @@ import Koa from 'koa';
 import Routes from './controller';
 
 const koa = new Koa();
+
 koa.use(Routes.routes());
 
 // koa.use(Bodyparser());

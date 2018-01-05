@@ -8,12 +8,14 @@ const postUri = process.env.POST_URI || '/hourlycat';
 router
   .get('/', async ctx => {
     const cat = await getRandomCat();
+
     ctx.body = cat.file;
     ctx.set('cat', cat.fileName);
     ctx.response.type = cat.type;
   })
   .get('/thumb', async ctx => {
     const cat = await getRandomCatThumb();
+
     ctx.body = cat.file;
     ctx.set('cat', cat.fileName);
     ctx.response.type = cat.type;
@@ -28,10 +30,11 @@ router
   })
   .post(postUri, async ctx => {
     if (process.env.ENABLE_TWITTER) {
-      const tweetImage = require('./twitter').tweetImage;
+      const tweetImage = require('./twitter').default;
 
       if (ctx.request.header.apikey !== process.env.API_TOKEN) {
         ctx.status = 401;
+
         return;
       }
       await tweetImage();

@@ -1,12 +1,7 @@
 module.exports = {
-  extends: 'marudor/noReact',
+  extends: 'joblift/2space',
   env: {
     node: true,
-  },
-  globals: {
-  },
-  plugins: ['sort-imports-es6-autofix'],
-  rules: {
-    'space-before-function-paren': 0,
+    es6: true,
   },
 };
