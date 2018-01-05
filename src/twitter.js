@@ -17,7 +17,7 @@ export default async function tweetImage() {
   try {
     const { fileName, file } = await getRandomCat();
 
-    const b64Cat = file.toString('utf-8');
+    const b64Cat = file.toString('base64');
     const uploadedCat = await t.post('media/upload', { media_data: b64Cat });
     const mediaParams = {
       media_id: uploadedCat.data.media_id_string,
