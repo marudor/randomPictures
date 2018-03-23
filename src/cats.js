@@ -1,8 +1,8 @@
 // @flow
+import { resize } from 'easyimage';
 import archiver from 'archiver';
 import config from './config';
 import crypto from 'crypto';
-import easyimage from 'easyimage';
 import fs from 'fs-extra';
 import path from 'path';
 import RandomJs from 'random-js';
@@ -45,7 +45,8 @@ export async function getRandomCat() {
 
 export async function getRandomCatThumb() {
   const fileName = await getCatFileName();
-  const image = await easyimage.resize({
+
+  const image = await resize({
     src: path.resolve(`${catPath}/${fileName}`),
     dst: path.resolve(`${catPath}/thumb/${fileName}`),
     width: 400,
