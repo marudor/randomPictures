@@ -1,17 +1,12 @@
 // @flow
 /* eslint camelcase: 0 */
 import { getRandomCat } from './cats';
+import config from './config';
 import Twit from 'twit';
 
-const t = new Twit({
-  consumer_key: process.env.CONSUMER_KEY || '',
-  consumer_secret: process.env.CONSUMER_SECRET || '',
-  access_token: process.env.ACCESS_KEY || '',
-  access_token_secret: process.env.ACCESS_KEY_SECRET || '',
-});
+const t = new Twit(config.twitter.auth);
 
-const ALT_TEXT = process.env.ALT_TEXT || 'Image';
-const alt_text = { text: ALT_TEXT };
+const alt_text = { text: config.twitter.altText };
 
 export default async function tweetImage() {
   try {
@@ -26,13 +21,13 @@ export default async function tweetImage() {
 
     await t.post('media/metadata/create', mediaParams);
     const tweet = await t.post('statuses/update', {
-      status: process.env.TWEET_MESSAGE,
+      status: config.twitter.tweetMessage,
       media_ids: [uploadedCat.data.media_id_string],
     });
 
     // eslint-disable-next-line
     console.log({
-      status: process.env.TWEET_MESSAGE,
+      status: config.twitter.tweetMessage,
       mediaIds: uploadedCat.data.media_id_string,
       image: fileName,
       tweet: tweet.data.id,

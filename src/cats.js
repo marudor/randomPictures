@@ -1,5 +1,6 @@
 // @flow
 import archiver from 'archiver';
+import config from './config';
 import crypto from 'crypto';
 import easyimage from 'easyimage';
 import fs from 'fs-extra';
@@ -7,7 +8,12 @@ import path from 'path';
 import RandomJs from 'random-js';
 
 const random = new RandomJs(RandomJs.engines.browserCrypto);
-const catPath = process.env.CAT_PATH || '';
+const catPath = config.imagePath;
+
+// eslint-disable-next-line no-sync
+if (!fs.existsSync(catPath)) {
+  throw new Error(`${catPath} path has to exist!`);
+}
 
 async function getAvailableCats() {
   const rawAvailableCats: string[] = await fs.readdir(path.resolve(catPath));

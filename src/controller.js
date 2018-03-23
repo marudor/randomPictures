@@ -1,9 +1,10 @@
 // @flow
 import { getAll, getHash, getRandomCat, getRandomCatThumb } from './cats';
+import config from './config';
 import KoaRouter from 'koa-router';
 
 const router = new KoaRouter();
-const postUri = process.env.POST_URI || '/hourlycat';
+const postUri = config.postUri;
 
 router
   .get('/', async ctx => {
@@ -29,10 +30,10 @@ router
     ctx.set('Content-type', 'application/zip');
   })
   .post(postUri, async ctx => {
-    if (process.env.ENABLE_TWITTER) {
+    if (!config.twitter.disabled) {
       const tweetImage = require('./twitter').default;
 
-      if (ctx.request.header.apikey !== process.env.API_TOKEN) {
+      if (ctx.request.header.apikey !== config.apiToken) {
         ctx.status = 401;
 
         return;
