@@ -45,14 +45,23 @@ export async function getRandomCat() {
 
 export async function getRandomCatThumb() {
   const fileName = await getCatFileName();
+  const thumbPath = path.resolve(`${catPath}/thumb/${fileName}`);
+  const splitted = fileName.split('.');
+  const type = splitted[splitted.length - 1];
+
+  if (await fs.exists(thumbPath)) {
+    return {
+      fileName,
+      file: await fs.readFile(thumbPath),
+      type,
+    };
+  }
 
   const image = await resize({
     src: path.resolve(`${catPath}/${fileName}`),
     dst: path.resolve(`${catPath}/thumb/${fileName}`),
     width: 400,
   });
-  const splitted = fileName.split('.');
-  const type = splitted[splitted.length - 1];
   const file: Buffer = await fs.readFile(path.resolve(image.path));
 
   return {
