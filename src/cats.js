@@ -1,22 +1,21 @@
 // @flow
+import { createWriteStream, promises as fs } from 'fs';
 import { resize } from 'easyimage';
 import archiver from 'archiver';
 import config from './config';
 import crypto from 'crypto';
-import fs from 'fs-extra';
 import path from 'path';
 import RandomJs from 'random-js';
 
 const random = new RandomJs(RandomJs.engines.browserCrypto);
 const catPath = config.imagePath;
 
-// eslint-disable-next-line no-sync
-if (!fs.existsSync(catPath)) {
-  throw new Error(`${catPath} path has to exist!`);
-}
+fs.access(catPath).catch((e: Error) => {
+  throw new Error(`${catPath} has to exist! ${e.toString()}`);
+});
 
 async function getAvailableCats() {
-  const rawAvailableCats: string[] = await fs.readdir(path.resolve(catPath));
+  const rawAvailableCats = await fs.readdir(path.resolve(catPath));
   const availableCats = rawAvailableCats.filter(fileName => fileName.includes('.') && !fileName.endsWith('.zip'));
 
   return availableCats;
@@ -49,12 +48,14 @@ export async function getRandomCatThumb() {
   const splitted = fileName.split('.');
   const type = splitted[splitted.length - 1];
 
-  if (await fs.exists(thumbPath)) {
+  try {
     return {
       fileName,
       file: await fs.readFile(thumbPath),
       type,
     };
+  } catch (e) {
+    // Not existing, lets create thumb
   }
 
   const image = await resize({
@@ -62,7 +63,7 @@ export async function getRandomCatThumb() {
     dst: path.resolve(`${catPath}/thumb/${fileName}`),
     width: 400,
   });
-  const file: Buffer = await fs.readFile(path.resolve(image.path));
+  const file = await fs.readFile(path.resolve(image.path));
 
   return {
     fileName,
@@ -89,7 +90,7 @@ export async function getHash() {
 }
 
 export async function createZip(zipPath: string) {
-  const output = fs.createWriteStream(zipPath);
+  const output = createWriteStream(zipPath);
   const archive = archiver('zip', {
     zlib: { level: 9 }, // Sets the compression level.
   });
@@ -99,7 +100,7 @@ export async function createZip(zipPath: string) {
     output.on('end', () => {
       resolve();
     });
-    archive.on('error', err => {
+    archive.on('error', (err: Error) => {
       reject(err);
     });
   });
@@ -118,9 +119,10 @@ export async function createZip(zipPath: string) {
 async function initZip() {
   const hash = await getHash();
   const zipPath = path.resolve(catPath, `${hash}.zip`);
-  const fileExists = await fs.exists(zipPath);
 
-  if (!fileExists) {
+  try {
+    await fs.access(zipPath);
+  } catch (e) {
     await createZip(zipPath);
   }
 }
@@ -129,12 +131,10 @@ initZip();
 export async function getAll() {
   const hash = await getHash();
   const zipPath = path.resolve(catPath, `${hash}.zip`);
-  const fileExists = await fs.exists(zipPath);
 
-  if (fileExists) {
+  try {
     return fs.readFile(zipPath);
+  } catch (e) {
+    return null;
   }
-
-  return null;
-  // return createZip(zipPath);
 }

@@ -1,14 +1,14 @@
-FROM node:8-alpine as build
+FROM node:10-alpine as build
 WORKDIR /usr/app
 COPY package.json yarn.lock /usr/app/
 RUN yarn
 COPY src/ /usr/app/src/
-COPY .babelrc /usr/app/
+COPY .babelrc.js /usr/app/
 ENV NODE_ENV=production
 RUN yarn build
 
 
-FROM node:8-alpine
+FROM node:10-alpine
 
 RUN apk add --update-cache imagemagick
 

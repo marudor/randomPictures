@@ -4,4 +4,7 @@ module.exports = {
     node: true,
     es6: true,
   },
+  rules: {
+    'max-lines': 0,
+  }
 };
