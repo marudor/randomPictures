@@ -1,0 +1,21 @@
+sudo: required
+language: node_js
+notifications:
+  email: false
+node_js:
+- 10
+services:
+- docker
+script:
+- export TAG=`if [[ $TRAVIS_BRANCH = "master" ]]; then echo "latest"; else echo $TRAVIS_BRANCH;
+  fi`
+- docker build -t $REPO:$TAG .
+after_success:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- docker push $REPO:$TAG
+env:
+  global:
+  - REPO=marudor/randomcats
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - secure: h9MhTZcr5wAyF6LvZaQIBeJRQl8ihQjmUNrZHUax3djQ6skVt/ssFHZqH9v6Dyo4LhK0wFixtoc0zX40Pu9pR4ZNKxRwUOHBxyAuuscFVa5OcFKeBb4QtHtM12QUkPH4mLES+fHVbNZJQPPPpZwOx7zaafFh0WZQvu49CZpBqzT4L8qdc5VpN/x1FeZ2kinmB0+eTRFmGO2fNPlBq439+aqZxWMhliY8rIwLYK9/XA3HTbpCa25gGIjRyOSx3tUUDmqv+U6ULFfCHh5Bb+1u3esRSB9xxStoNzlKBMvKoqAOXbetybvToX8T5xSvkv7wnXLl/jZRf0u+ItIKGX4NjECK5DlKHhkVyjtotuuhwn9SCwebflACKOBQzkMP2uoTJDKN50ez6h7X+orCZ5NKG/SVQHv7BIL3A+SxO1QmwPO3CMyoQqBF567S9w369HAc69E9AJsheY34ZtUcmRlsCTK/ZkwlYPpL7ELk0AEz6mkbcEn575jmQV5LO0NBpeKUrlvPUOXtRzlWERBs3K5rfDZp/64qNeC9J7WV6s3AslrxssLjqN16s472xPOGw4If+MaJhJPaT2FXU6zB4485vG7k19nTp4ndTysqeFDmwWfK3YnPXSuAOtFshsN8+UYLJDTwi4AQ3kcQciszqZqjx0UDDPWqQh+/EP7gMGjCjco=
+  - secure: L/z/TjTRD/246W0ieX2VYC5rhzBP5/QcyFlp8DlQCOt0CnZ0SRR28MrDC2oB9M/+4qakcUEmQWuN7/npoTjxgKCWAJuNm3RNCOHZN8MmcUu3lp+zBjg10Hvk11v9hGG19D1A+wHOvBcLzlxk/RMfJWO9v3ifF6udccbjyiFJeCdRIxjKWAy0EJwsFdeKpe2jiaRUUvhA4uzkBvPsSrkRmM8D0AVl28aZSHPfqxSnnSllRhLE0Nq1DfU5EMcEozXH2lQuocRfesGxG/FeF+o0wtM2N8LGcUGlZXMjuV6zlB8g9uZSVrjOadgmKnoyLZ6vueruH0Zw12LcOgGsRFiHzfQtkcp5pL1z5qP1LAvBvmjVy7lPcdMjVKfmNFbsRNVOLjPo3Y7TekRM5aPiU3ar/XKA8WnmTRKzOCUDZyO73FvXXcaeGQzirIN34psRC4WX/9rNELavxO3FbPw4uL/5KrAXEsxnnllPDTV9fTXz51TdiiDRx8k48FTwVmWM8/bMbqSR1LpF+63TUOq9dR45hnE7oECOMaxbMDr0V751THMWcm6cbFG9UcSklgSqRoJB9EhpkxRIY8sOWvhZyiWBiwR83TPOqqjZeOZkCg0xg7QcAI/KqQyamEd+l9nkJUTNHlXx3zZSUAkKAEe6YjgBfeG/cTdTrxp6jcrhD7JPGjE=
