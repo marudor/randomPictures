@@ -1,6 +1,7 @@
 // @flow
 /* eslint camelcase: 0 */
 import { getRandomCat } from './cats';
+import { logger } from './logger';
 import config from './config';
 import Twit from 'twit';
 
@@ -25,15 +26,13 @@ export default async function tweetImage() {
       media_ids: [uploadedCat.data.media_id_string],
     });
 
-    // eslint-disable-next-line
-    console.log({
+    logger.info({
       status: config.twitter.tweetMessage,
       mediaIds: uploadedCat.data.media_id_string,
       image: fileName,
       tweet: tweet.data.id,
     });
   } catch (e) {
-    // eslint-disable-next-line
-    console.error(e);
+    logger.error(e);
   }
 }

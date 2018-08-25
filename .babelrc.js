@@ -6,13 +6,13 @@ module.exports = {
         targets: {
           node: '10',
         },
-        loose: true,
+        loose: false,
         useBuiltIns: 'entry',
         modules: 'commonjs',
       },
     ],
     '@babel/preset-flow',
-    ['@babel/preset-stage-0', { decoratorsLegacy: true }],
+    'babel-preset-joblift',
   ],
   plugins: [],
 };
