@@ -21,41 +21,28 @@ async function getAvailableCats() {
   return availableCats;
 }
 
-async function getCatFileName() {
+export async function getCatFileName() {
   const availableCats = await getAvailableCats();
   const index = random.integer(0, availableCats.length - 1);
 
   return availableCats[index];
 }
 
-export async function getRandomCat() {
-  const fileName = await getCatFileName();
+export async function getSpecificCat(fileName: string, thumb: boolean = false) {
   const splitted = fileName.split('.');
   const type = splitted[splitted.length - 1];
-
-  const file: Buffer = await fs.readFile(path.resolve(`${catPath}/${fileName}`));
-
-  return {
-    fileName,
-    file,
-    type,
-  };
-}
-
-export async function getRandomCatThumb() {
-  const fileName = await getCatFileName();
-  const thumbPath = path.resolve(`${catPath}/thumb/${fileName}`);
-  const splitted = fileName.split('.');
-  const type = splitted[splitted.length - 1];
+  const filePath = thumb ? `${catPath}/thumb/${fileName}` : `${catPath}/${fileName}`;
 
   try {
     return {
       fileName,
-      file: await fs.readFile(thumbPath),
+      file: await fs.readFile(path.resolve(filePath)),
       type,
     };
   } catch (e) {
-    // Not existing, lets create thumb
+    if (!thumb) {
+      throw e;
+    }
   }
 
   const image = await resize({
@@ -70,6 +57,12 @@ export async function getRandomCatThumb() {
     file,
     type,
   };
+}
+
+export async function getRandomCat(thumb: boolean = false) {
+  const fileName = await getCatFileName();
+
+  return getSpecificCat(fileName, thumb);
 }
 
 export async function getHash() {

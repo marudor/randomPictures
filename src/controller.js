@@ -1,5 +1,5 @@
 // @flow
-import { getAll, getHash, getRandomCat, getRandomCatThumb } from './cats';
+import { getAll, getCatFileName, getHash, getRandomCat, getSpecificCat } from './cats';
 import config from './config';
 import KoaRouter from 'koa-router';
 
@@ -15,7 +15,26 @@ router
     ctx.response.type = cat.type;
   })
   .get('/thumb', async ctx => {
-    const cat = await getRandomCatThumb();
+    const cat = await getRandomCat(true);
+
+    ctx.body = cat.file;
+    ctx.set('cat', cat.fileName);
+    ctx.response.type = cat.type;
+  })
+  .get('/specific', async ctx => {
+    ctx.body = await getCatFileName();
+  })
+  .get('/specific/:id', async ctx => {
+    const { id } = ctx.params;
+    const cat = await getSpecificCat(id);
+
+    ctx.body = cat.file;
+    ctx.set('cat', cat.fileName);
+    ctx.response.type = cat.type;
+  })
+  .get('/specific/:id/thumb', async ctx => {
+    const { id } = ctx.params;
+    const cat = await getSpecificCat(id, true);
 
     ctx.body = cat.file;
     ctx.set('cat', cat.fileName);

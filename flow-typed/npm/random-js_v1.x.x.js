@@ -4,7 +4,7 @@
 declare module "random-js" {
   declare class Engine {}
   declare class MtEngine extends Engine {
-    $call: () => number;
+    [[call]](): number;
     seed(value?: mixed): this;
     seedWithArray(value: mixed[]): this;
     autoSeed(): this;
