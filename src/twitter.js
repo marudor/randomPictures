@@ -14,14 +14,19 @@ export default async function tweetImage() {
     const { fileName, file } = await getRandomCat();
 
     const b64Cat = file.toString('base64');
-    const uploadedCat = await t.post('media/upload', { media_data: b64Cat });
+    const uploadedCat = await t.post('media/upload', {
+      stringify_ids: true,
+      media_data: b64Cat,
+    });
     const mediaParams = {
+      stringify_ids: true,
       media_id: uploadedCat.data.media_id_string,
       alt_text,
     };
 
     await t.post('media/metadata/create', mediaParams);
     const tweet = await t.post('statuses/update', {
+      stringify_ids: true,
       status: config.twitter.tweetMessage,
       media_ids: [uploadedCat.data.media_id_string],
     });
@@ -30,7 +35,7 @@ export default async function tweetImage() {
       status: config.twitter.tweetMessage,
       mediaIds: uploadedCat.data.media_id_string,
       image: fileName,
-      tweet: tweet.data.id,
+      tweet: tweet.data.id_str,
     });
   } catch (e) {
     logger.error(e);
