@@ -9,3 +9,4 @@ docker-compose.yml
 yarn-error.log
 *.zip
 .node-version
+dist/

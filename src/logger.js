@@ -40,6 +40,7 @@ const logglyConfig = {
 };
 
 if (process.env.NODE_ENV === 'production' && logglyConfig.token && logglyConfig.subdomain) {
+  // eslint-disable-next-line no-console
   console.log('Using loggly to log');
   accessConfig.streams.push({
     stream: new bunyanLoggly(logglyConfig),
