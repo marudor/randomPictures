@@ -88,6 +88,14 @@ docker:
   dependencies:
     - build
 
+deploy:beta-fox:
+  image: registry.gitlab.com/marudor/deploy-helper
+  stage: deploy
+  script: /deploy.sh "beta-fox" "$CI_COMMIT_SHA" "pictures"
+  environment:
+    name: beta-fox
+  only: [master]
+  dependencies: []
 
 deploy:pingu:
   image: registry.gitlab.com/marudor/deploy-helper
