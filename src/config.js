@@ -1,7 +1,7 @@
 // @flow
 const config = {
   webPort: Number.parseInt(process.env.WEB_PORT || '4223', 10),
-  imagePath: process.env.CAT_PATH || '',
+  picturePath: process.env.PICTURE_PATH || '',
   postUri: process.env.POST_URI || '/hourlycat',
   apiToken: process.env.API_TOKEN,
   twitter: {
@@ -17,8 +17,8 @@ const config = {
   },
 };
 
-if (!config.imagePath) {
-  throw new Error('CAT_PATH environment needed!');
+if (!config.picturePath) {
+  throw new Error('PICTURE_PATH environment needed!');
 }
 
 export default config;

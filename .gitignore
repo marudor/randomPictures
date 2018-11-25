@@ -1,6 +1,7 @@
 .env
 .DS_STORE
-cats
+cats/
+pictures/
 lib
 node_modules
 fox/

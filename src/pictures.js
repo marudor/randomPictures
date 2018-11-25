@@ -7,31 +7,39 @@ import crypto from 'crypto';
 import path from 'path';
 import RandomJs from 'random-js';
 
-const random = new RandomJs(RandomJs.engines.browserCrypto);
-const catPath = config.imagePath;
+type Picture = {
+  fileName: string,
+  file: Buffer,
+  type: string,
+};
 
-fs.access(catPath).catch((e: Error) => {
-  throw new Error(`${catPath} has to exist! ${e.toString()}`);
+const random = new RandomJs(RandomJs.engines.browserCrypto);
+const picturePath = config.picturePath;
+
+fs.access(picturePath).catch((e: Error) => {
+  throw new Error(`${picturePath} has to exist! ${e.toString()}`);
 });
 
-async function getAvailableCats() {
-  const rawAvailableCats = await fs.readdir(path.resolve(catPath));
-  const availableCats = rawAvailableCats.filter(fileName => fileName.includes('.') && !fileName.endsWith('.zip'));
+async function getAvailablePictures() {
+  const rawavailablePictures = await fs.readdir(path.resolve(picturePath));
+  const availablePictures = rawavailablePictures.filter(
+    fileName => fileName.includes('.') && !fileName.endsWith('.zip')
+  );
 
-  return availableCats;
+  return availablePictures;
 }
 
-export async function getCatFileName() {
-  const availableCats = await getAvailableCats();
-  const index = random.integer(0, availableCats.length - 1);
+export async function getPictureFileName() {
+  const availablePictures = await getAvailablePictures();
+  const index = random.integer(0, availablePictures.length - 1);
 
-  return availableCats[index];
+  return availablePictures[index];
 }
 
-export async function getSpecificCat(fileName: string, thumb: boolean = false) {
+export async function getSpecificPicture(fileName: string, thumb: boolean = false): Promise<Picture> {
   const splitted = fileName.split('.');
   const type = splitted[splitted.length - 1];
-  const filePath = thumb ? `${catPath}/thumb/${fileName}` : `${catPath}/${fileName}`;
+  const filePath = thumb ? `${picturePath}/thumb/${fileName}` : `${picturePath}/${fileName}`;
 
   try {
     return {
@@ -46,8 +54,8 @@ export async function getSpecificCat(fileName: string, thumb: boolean = false) {
   }
 
   const image = await resize({
-    src: path.resolve(`${catPath}/${fileName}`),
-    dst: path.resolve(`${catPath}/thumb/${fileName}`),
+    src: path.resolve(`${picturePath}/${fileName}`),
+    dst: path.resolve(`${picturePath}/thumb/${fileName}`),
     width: 400,
   });
   const file = await fs.readFile(path.resolve(image.path));
@@ -59,15 +67,15 @@ export async function getSpecificCat(fileName: string, thumb: boolean = false) {
   };
 }
 
-export async function getRandomCat(thumb: boolean = false) {
-  const fileName = await getCatFileName();
+export async function getRandomPicture(thumb: boolean = false) {
+  const fileName = await getPictureFileName();
 
-  return getSpecificCat(fileName, thumb);
+  return getSpecificPicture(fileName, thumb);
 }
 
 export async function getHash() {
-  const availableCats = await getAvailableCats();
-  const hashs = availableCats
+  const availablePictures = await getAvailablePictures();
+  const hashs = availablePictures
     .map(c =>
       crypto
         .createHash('sha256')
@@ -97,11 +105,11 @@ export async function createZip(zipPath: string) {
       reject(err);
     });
   });
-  const availableCats = await getAvailableCats();
+  const availablePictures = await getAvailablePictures();
 
   await Promise.all(
-    availableCats.map(async fileName => {
-      archive.append(await fs.readFile(path.resolve(`${catPath}/${fileName}`)), { name: fileName });
+    availablePictures.map(async fileName => {
+      archive.append(await fs.readFile(path.resolve(`${picturePath}/${fileName}`)), { name: fileName });
     })
   );
   archive.finalize();
@@ -111,7 +119,7 @@ export async function createZip(zipPath: string) {
 
 async function initZip() {
   const hash = await getHash();
-  const zipPath = path.resolve(catPath, `${hash}.zip`);
+  const zipPath = path.resolve(picturePath, `${hash}.zip`);
 
   try {
     await fs.access(zipPath);
@@ -123,7 +131,7 @@ initZip();
 
 export async function getAll() {
   const hash = await getHash();
-  const zipPath = path.resolve(catPath, `${hash}.zip`);
+  const zipPath = path.resolve(picturePath, `${hash}.zip`);
 
   try {
     return fs.readFile(zipPath);

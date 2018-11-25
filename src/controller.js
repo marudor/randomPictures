@@ -1,5 +1,5 @@
 // @flow
-import { getAll, getCatFileName, getHash, getRandomCat, getSpecificCat } from './cats';
+import { getAll, getHash, getPictureFileName, getRandomPicture, getSpecificPicture } from './pictures';
 import config from './config';
 import KoaRouter from 'koa-router';
 
@@ -8,25 +8,25 @@ const postUri = config.postUri;
 
 router
   .get('/', async ctx => {
-    const cat = await getRandomCat();
+    const cat = await getRandomPicture();
 
     ctx.body = cat.file;
     ctx.set('cat', cat.fileName);
     ctx.response.type = cat.type;
   })
   .get('/thumb', async ctx => {
-    const cat = await getRandomCat(true);
+    const cat = await getRandomPicture(true);
 
     ctx.body = cat.file;
     ctx.set('cat', cat.fileName);
     ctx.response.type = cat.type;
   })
   .get('/specific', async ctx => {
-    ctx.body = await getCatFileName();
+    ctx.body = await getPictureFileName();
   })
   .get('/specific/:id', async ctx => {
     const { id } = ctx.params;
-    const cat = await getSpecificCat(id);
+    const cat = await getSpecificPicture(id);
 
     ctx.body = cat.file;
     ctx.set('cat', cat.fileName);
@@ -34,7 +34,7 @@ router
   })
   .get('/specific/:id/thumb', async ctx => {
     const { id } = ctx.params;
-    const cat = await getSpecificCat(id, true);
+    const cat = await getSpecificPicture(id, true);
 
     ctx.body = cat.file;
     ctx.set('cat', cat.fileName);
