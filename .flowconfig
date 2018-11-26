@@ -8,8 +8,6 @@ src/
 [lints]
 
 [options]
-module.system=haste
-
 include_warnings=true
 esproposal.decorators=ignore
 esproposal.class_static_fields=enable
@@ -17,7 +15,7 @@ esproposal.class_instance_fields=enable
 esproposal.export_star_as=enable
 experimental.const_params=true
 module.system.node.resolve_dirname=node_modules
-module.system.node.resolve_dirname=src
+module.system.node.resolve_dirname=./src
 module.ignore_non_literal_requires=true
 module.use_strict=true
 
