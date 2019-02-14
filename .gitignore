@@ -1,4 +1,5 @@
 .env
+.in
 .DS_STORE
 cats/
 pictures/

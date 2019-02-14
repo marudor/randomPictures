@@ -1,5 +1,5 @@
 export WEB_PORT=4223
-export CAT_PATH=cats
+export PICTURE_PATH=cats
 export LOGGLY_TOKEN=
 export LOGGLY_SUBDOMAIN=
 export ORIGIN=
