@@ -1,7 +1,8 @@
-// @flow
 import request from 'request';
 
-let override;
+let override: {
+  [userAgent: string]: string;
+};
 
 if (process.env.OVERRIDE) {
   const overrides = process.env.OVERRIDE.split(';');

@@ -1,9 +1,8 @@
-// @flow
-import { middlewares } from './logger';
 import config from './config';
 import createAdmin from './admin';
 import http from 'http';
 import Koa from 'koa';
+import middlewares from './logger';
 import Routes from './controller';
 import userAgentOverride from './userAgentOverride';
 

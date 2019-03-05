@@ -42,10 +42,9 @@ lint:
     paths:
       - node_modules/
 
-flow:
-  image: node:10
+types:
   stage: test
-  script: yarn flow
+  script: yarn tsc
   cache:
     policy: pull
     key: '$CI_COMMIT_REF_SLUG'
@@ -141,7 +140,6 @@ deploy:cats:
     name: cats
   when: manual
   dependencies: []
-
 
 cleanup:
   stage: cleanup

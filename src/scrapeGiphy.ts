@@ -1,24 +1,32 @@
-// @flow
 import { exec } from 'child_process';
 import { promises as fs } from 'fs';
 import GiphyApi from 'giphy-api';
 
 const giphy = GiphyApi(process.env.GIPHY_API);
 const execPromise = (command: string) =>
-  new Promise((resolve, reject) =>
-    exec(command, (err, stdout: Buffer, stderr: Buffer) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({
-          stdout,
-          stderr,
-        });
+  new Promise<{
+    stdout: Buffer;
+    stderr: Buffer;
+  }>((resolve, reject) =>
+    exec(
+      command,
+      {
+        encoding: 'buffer',
+      },
+      (err, stdout: Buffer, stderr: Buffer) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve({
+            stdout,
+            stderr,
+          });
+        }
       }
-    })
+    )
   );
 
-const downloadImage = async (url, id) => {
+const downloadImage = async (url: string, id: string) => {
   const prefix = 'giphy/';
 
   const interimName = `${prefix}${id}.gif`;
@@ -37,15 +45,17 @@ giphy.search(
     limit: 10,
     fmt: 'json',
   },
-  (err, res) => {
+  (err: any, res: any) => {
     if (err) {
       // eslint-disable-next-line no-console
       console.error(err);
 
       return;
     }
-    res.data.forEach(result => {
-      const url = result.images.original.gif?.url || result.images.original?.url;
+    res.data.forEach((result: any) => {
+      const url =
+        (result.images.original.gif && result.images.original.gif.url) ||
+        (result.images.original && result.images.original.url);
       const id = result.id;
 
       if (url) {

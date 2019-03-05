@@ -1,15 +1,14 @@
-// @flow
 /* eslint camelcase: 0 */
 import { getRandomPicture } from './pictures';
-import { logger } from './logger';
 import config from './config';
+import Logger from 'bunyan';
 import Twit from 'twit';
 
 const t = new Twit(config.twitter.auth);
 
 const alt_text = { text: config.twitter.altText };
 
-export default async function tweetImage() {
+export default async function tweetImage(logger: Logger) {
   try {
     const { fileName, file } = await getRandomPicture();
 
@@ -20,6 +19,7 @@ export default async function tweetImage() {
     });
     const mediaParams = {
       stringify_ids: true,
+      // @ts-ignore
       media_id: uploadedPicture.data.media_id_string,
       alt_text,
     };
@@ -28,13 +28,16 @@ export default async function tweetImage() {
     const tweet = await t.post('statuses/update', {
       stringify_ids: true,
       status: config.twitter.tweetMessage,
+      // @ts-ignore
       media_ids: [uploadedPicture.data.media_id_string],
     });
 
     logger.info({
       status: config.twitter.tweetMessage,
+      // @ts-ignore
       mediaIds: uploadedPicture.data.media_id_string,
       image: fileName,
+      // @ts-ignore
       tweet: tweet.data.id_str,
     });
   } catch (e) {

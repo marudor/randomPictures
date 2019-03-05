@@ -1,4 +1,3 @@
-// @flow
 const config = {
   webPort: Number.parseInt(process.env.WEB_PORT || '4223', 10),
   picturePath: process.env.PICTURE_PATH || '',

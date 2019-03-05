@@ -1,19 +1,18 @@
-// @flow
 import { createWriteStream, promises as fs } from 'fs';
+import { nodeCrypto, Random } from 'random-js';
 import { resize } from 'easyimage';
 import archiver from 'archiver';
 import config from './config';
 import crypto from 'crypto';
 import path from 'path';
-import RandomJs from 'random-js';
 
 type Picture = {
-  fileName: string,
-  file: Buffer,
-  type: string,
+  fileName: string;
+  file: Buffer;
+  type: string;
 };
 
-const random = new RandomJs(RandomJs.engines.browserCrypto);
+const random = new Random(nodeCrypto);
 const picturePath = config.picturePath;
 
 fs.access(picturePath).catch((e: Error) => {

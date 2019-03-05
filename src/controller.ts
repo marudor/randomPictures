@@ -1,4 +1,3 @@
-// @flow
 import { getAll, getHash, getPictureFileName, getRandomPicture, getSpecificPicture } from './pictures';
 import config from './config';
 import KoaRouter from 'koa-router';
@@ -57,7 +56,7 @@ router
 
         return;
       }
-      await tweetImage();
+      await tweetImage(ctx.log);
     }
   });
 
