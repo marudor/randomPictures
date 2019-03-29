@@ -1,3 +1,4 @@
+import 'core-js/stable';
 import config from './config';
 import createAdmin from './admin';
 import http from 'http';
