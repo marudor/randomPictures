@@ -1,4 +1,4 @@
-import { getAll, getHash, getPictureFileName, getRandomPicture, getSpecificPicture } from './pictures';
+import { getHash, getPictureFileName, getRandomPicture, getSpecificPicture } from './pictures';
 import config from './config';
 import KoaRouter from 'koa-router';
 
@@ -41,11 +41,6 @@ router
   })
   .get('/hash', async ctx => {
     ctx.body = await getHash();
-  })
-  .get('/all.zip', async ctx => {
-    ctx.body = await getAll();
-    ctx.attachment('cats.zip');
-    ctx.set('Content-type', 'application/zip');
   })
   .post(postUri, async ctx => {
     if (!config.twitter.disabled) {
