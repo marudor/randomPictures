@@ -1,7 +1,6 @@
-import { createWriteStream, promises as fs } from 'fs';
+import { promises as fs } from 'fs';
 import { nodeCrypto, Random } from 'random-js';
 import { resize } from 'easyimage';
-import archiver from 'archiver';
 import config from './config';
 import crypto from 'crypto';
 import path from 'path';

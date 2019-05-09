@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/marudor/randomPictures#readme",
   "dependencies": {
-    "archiver": "^3.0.0",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
     "bunyan-loggly": "^1.4.1",
