@@ -1,27 +1,19 @@
 module.exports = {
-  extends: ['joblift/node'],
+  extends: ['marudor/noReact'],
+  parser: 'babel-eslint',
   env: {
+    browser: true,
     node: true,
     es6: true,
   },
-  settings: {
-    'import/resolver': {
-      node: true,
-      'eslint-import-resolver-typescript': true,
-    },
+  globals: {
+    PROD: false,
+    SERVER: false,
   },
   overrides: [
     {
-      rules: {
-        'no-unused-vars': 0,
-      },
-      files: ['src/**/*.ts'],
-      parser: '@typescript-eslint/parser',
-      parserOptions: {
-        sourceType: 'module',
-        project: './tsconfig.json',
-        tsconfigRootDir: './',
-      },
+      files: ['**/*.ts', '**/*.tsx'],
+      extends: ['marudor/typescript'],
     },
   ],
 };

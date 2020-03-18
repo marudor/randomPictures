@@ -5,11 +5,11 @@ import config from './config';
 import crypto from 'crypto';
 import path from 'path';
 
-type Picture = {
+interface Picture {
   fileName: string;
   file: Buffer;
   type: string;
-};
+}
 
 const random = new Random(nodeCrypto);
 const picturePath = config.picturePath;
