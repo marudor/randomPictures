@@ -1,0 +1,29 @@
+hostName: foxrudor.de
+
+env:
+  - name: ORIGIN
+    value: foxrudor
+  - name: ENABLE_TWITTER
+    value: "true"
+  - name: ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        name: fox-config
+        key: access_key
+  - name: ACCESS_KEY_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: fox-config
+        key: access_key_secret
+  - name: API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: fox-config
+        key: api_token
+  - name: POST_URI
+    valueFrom:
+      secretKeyRef:
+        name: fox-config
+        key: post_uri
+
+nodeImagePath: /nfsStorage/fox

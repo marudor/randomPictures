@@ -1,0 +1,21 @@
+{{- if .Values.certificate.enabled -}}
+{{- $fullName := include "randomPictures.fullname" . -}}
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ include "randomPictures.name" . }}
+    helm.sh/chart: {{ include "randomPictures.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  secretName: {{ $fullName }}
+  issuerRef:
+    name: {{ .Values.certificate.issuerName }}
+    kind: {{ .Values.certificate.issuerKind }}
+  commonName: {{ .Values.hostName }}
+  dnsNames:
+    - {{ .Values.hostName }}
+    - www.{{ .Values.hostName }}
+{{- end }}

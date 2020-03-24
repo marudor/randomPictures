@@ -1,0 +1,29 @@
+hostName: pandarudor.de
+
+env:
+  - name: ORIGIN
+    value: pandarudor
+  - name: ENABLE_TWITTER
+    value: "true"
+  - name: ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        name: panda-config
+        key: access_key
+  - name: ACCESS_KEY_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: panda-config
+        key: access_key_secret
+  - name: API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: panda-config
+        key: api_token
+  - name: POST_URI
+    valueFrom:
+      secretKeyRef:
+        name: panda-config
+        key: post_uri
+
+nodeImagePath: /nfsStorage/panda

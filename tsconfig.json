@@ -14,16 +14,9 @@
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
-    // "strictPropertyInitialization": false,
-    // "noImplicitAny": false,
     "target": "esnext",
     "emitDecoratorMetadata": false,
     "resolveJsonModule": true,
-    "baseUrl": "src",
-    "paths": {
-      "Routing/*": ["client/Routing/*"],
-      "Abfahrten/*": ["client/Abfahrten/*"],
-      "Common/*": ["client/Common/*"]
-    }
+    "baseUrl": "src"
   }
 }

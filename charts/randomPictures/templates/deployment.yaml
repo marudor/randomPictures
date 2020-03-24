@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "randomPictures.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "randomPictures.name" . }}
+    helm.sh/chart: {{ include "randomPictures.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "randomPictures.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "randomPictures.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          volumeMounts:
+          - mountPath: /pictures
+            name: {{ include "randomPictures.name" . }}
+          image: "{{ .Values.imageRepository }}:{{ .Values.imageTag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 9000
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          env:
+{{ if .Values.baseEnv }}
+{{ toYaml .Values.baseEnv | indent 12 }}
+{{ end }}
+{{ if .Values.env }}
+{{ toYaml .Values.env | indent 12 }}
+{{ end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      {{ if .Values.imagePullSecret }}
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecret }}
+      {{ end }}
+      volumes:
+      - name: {{ include "randomPictures.name" . }}
+        hostPath:
+          path: {{ .Values.nodeImagePath }}
+          type: ""
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

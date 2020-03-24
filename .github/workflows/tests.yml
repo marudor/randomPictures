@@ -1,0 +1,34 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v1
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 13
+        uses: actions/setup-node@master
+        with:
+          node-version: 13
+      - name: install
+        run: yarn --immutable
+      - name: lint
+        run: yarn lint
+      - name: types
+        run: yarn tsc

@@ -1,0 +1,43 @@
+certificate:
+  enabled: true
+  issuerName: marudor-issuer
+  issuerKind: ClusterIssuer
+
+baseEnv:
+  - name: PICTURE_PATH
+    value: /pictures
+  - name: CONSUMER_KEY
+    valueFrom:
+      secretKeyRef:
+        name: common-config
+        key: consumer_key
+  - name: CONSUMER_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: common-config
+        key: consumer_secret
+  - name: LOGGLY_SUBDOMAIN
+    valueFrom:
+      secretKeyRef:
+        name: common-config
+        key: loggly_subdomain
+  - name: LOGGLY_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: common-config
+        key: loggly_token
+
+ingress:
+  enabled: true
+  annotations: {}
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "200m"
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
