@@ -7,7 +7,7 @@ fox:
   environment: production
   description: "Production"
   payload:
-    value_files: ["./config/production.yml", "./config/_common.yml"]
+    value_files: ["./config/fox.yml", "./config/_common.yml"]
     release: fox
     namespace: pictures
     track: stable
@@ -18,7 +18,7 @@ panda:
   environment: production
   description: "Production"
   payload:
-    value_files: ["./config/production.yml", "./config/_common.yml"]
+    value_files: ["./config/panda.yml", "./config/_common.yml"]
     release: panda
     namespace: pictures
     track: stable
@@ -29,7 +29,7 @@ cats:
   environment: production
   description: "Production"
   payload:
-    value_files: ["./config/production.yml", "./config/_common.yml"]
+    value_files: ["./config/cats.yml", "./config/_common.yml"]
     release: cats
     namespace: pictures
     track: stable
@@ -40,7 +40,7 @@ pingu:
   environment: production
   description: "Production"
   payload:
-    value_files: ["./config/production.yml", "./config/_common.yml"]
+    value_files: ["./config/pingu.yml", "./config/_common.yml"]
     release: pingu
     namespace: pictures
     track: stable
@@ -51,7 +51,7 @@ tiger:
   environment: production
   description: "Production"
   payload:
-    value_files: ["./config/production.yml", "./config/_common.yml"]
+    value_files: ["./config/tiger.yml", "./config/_common.yml"]
     release: tiger
     namespace: pictures
     track: stable

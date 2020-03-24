@@ -1,0 +1,37 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "randomPictures.fullname" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ include "randomPictures.name" . }}
+    helm.sh/chart: {{ include "randomPictures.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.hostName }}
+        - www.{{ .Values.hostName }}
+      secretName: {{ $fullName }}
+  rules:
+    - host: {{ .Values.hostName }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+    - host: www.{{ .Values.hostName }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+{{- end }}

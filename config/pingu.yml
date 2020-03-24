@@ -1,0 +1,29 @@
+hostName: pingudor.de
+
+env:
+  - name: ORIGIN
+    value: pingudor
+  - name: ENABLE_TWITTER
+    value: "true"
+  - name: ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        name: pingu-config
+        key: access_key
+  - name: ACCESS_KEY_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: pingu-config
+        key: access_key_secret
+  - name: API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: pingu-config
+        key: api_token
+  - name: POST_URI
+    valueFrom:
+      secretKeyRef:
+        name: pingu-config
+        key: post_uri
+
+nodeImagePath: /nfsStorage/pingu

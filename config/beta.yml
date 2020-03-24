@@ -1,0 +1,7 @@
+hostName: beta.foxrudor.de
+
+env:
+  - name: ORIGIN
+    value: foxrudor-beta
+
+nodeImagePath: /nfsStorage/fox
