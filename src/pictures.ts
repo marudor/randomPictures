@@ -21,7 +21,7 @@ fs.access(picturePath).catch((e: Error) => {
 async function getAvailablePictures() {
   const rawavailablePictures = await fs.readdir(path.resolve(picturePath));
   const availablePictures = rawavailablePictures.filter(
-    fileName => fileName.includes('.') && !fileName.endsWith('.zip')
+    (fileName) => fileName.includes('.') && !fileName.endsWith('.zip')
   );
 
   return availablePictures;
@@ -73,17 +73,7 @@ export async function getRandomPicture(thumb: boolean = false) {
 
 export async function getHash() {
   const availablePictures = await getAvailablePictures();
-  const hashs = availablePictures
-    .map(c =>
-      crypto
-        .createHash('sha256')
-        .update(c)
-        .digest('hex')
-    )
-    .join();
+  const hashs = availablePictures.map((c) => crypto.createHash('sha256').update(c).digest('hex')).join();
 
-  return crypto
-    .createHash('sha256')
-    .update(hashs)
-    .digest('hex');
+  return crypto.createHash('sha256').update(hashs).digest('hex');
 }

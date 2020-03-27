@@ -1,14 +1,22 @@
 /* eslint camelcase: 0 */
 import { getRandomPicture } from './pictures';
+import { logger } from './logger';
 import config from './config';
-import Logger from 'bunyan';
 import Twit from 'twit';
 
-const t = new Twit(config.twitter.auth);
+let t: Twit;
+
+try {
+  t = new Twit(config.twitter.auth);
+} catch (e) {
+  if (!config.twitter.disabled) {
+    throw e;
+  }
+}
 
 const alt_text = { text: config.twitter.altText };
 
-export default async function tweetImage(logger: Logger) {
+export async function tweetImage() {
   try {
     const { fileName, file } = await getRandomPicture();
 

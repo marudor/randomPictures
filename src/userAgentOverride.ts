@@ -7,7 +7,7 @@ let override: {
 if (process.env.OVERRIDE) {
   const overrides = process.env.OVERRIDE.split(';');
 
-  overrides.forEach(overridePair => {
+  overrides.forEach((overridePair) => {
     const [userAgent, newBaseUrl] = overridePair.split('=');
 
     if (userAgent && newBaseUrl) {
@@ -32,10 +32,7 @@ export default (ctx: any, next: Function): Promise<any> => {
     delete options.headers.host;
 
     return new Promise((resolve, reject) => {
-      request(options)
-        .on('error', reject)
-        .pipe(ctx.res)
-        .on('end', resolve);
+      request(options).on('error', reject).pipe(ctx.res).on('end', resolve);
     });
   }
 
