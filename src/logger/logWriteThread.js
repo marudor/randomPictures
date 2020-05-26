@@ -19,8 +19,8 @@ if (process.env.NODE_ENV === 'production' && logglyToken) {
   // eslint-disable-next-line no-console
   console.log('Using loggly to log');
   streams.push((msg) => {
-    // 30 is info, we log warn and above to loggly
-    if (msg.level > 30) {
+    // 30 is info, we log info and above to loggly
+    if (msg.level >= 30) {
       axios.post(`https://logs-01.loggly.com/inputs/${logglyToken}`, JSON.stringify(msg), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

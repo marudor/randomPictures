@@ -33,7 +33,7 @@ export const logger = pino(
       paths: ['req.remoteAddress', 'req.remotePort', 'res.statusCode'],
       remove: true,
     },
-    name: 'randomPictures',
+    name: process.env.ORIGIN || 'randomPictures',
     serializers: {
       req: serializers.wrapRequestSerializer((req) => {
         try {

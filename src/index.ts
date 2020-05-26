@@ -1,5 +1,5 @@
 import 'core-js/stable';
-import { loggerMiddleware } from './logger';
+// import { loggerMiddleware } from './logger';
 import config from './config';
 import createAdmin from './admin';
 import http from 'http';
@@ -10,7 +10,7 @@ import userAgentOverride from './userAgentOverride';
 const koa = new Koa();
 
 koa.use(userAgentOverride);
-koa.use(loggerMiddleware);
+// koa.use(loggerMiddleware);
 koa.use(Routes.routes());
 
 const server = http.createServer(koa.callback());
