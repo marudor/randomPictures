@@ -1,6 +1,6 @@
 certificate:
   enabled: true
-  issuerName: marudor-issuer
+  issuerName: http-issuer
   issuerKind: ClusterIssuer
 
 baseEnv:
@@ -33,8 +33,8 @@ ingress:
 
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "200m"
+    memory: '256Mi'
+    cpu: '200m'
 
 nodeSelector: {}
 
