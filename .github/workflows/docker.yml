@@ -3,7 +3,7 @@ name: docker
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   docker:
@@ -17,4 +17,4 @@ jobs:
           username: marudor
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          snapshot: "true"
+          snapshot: 'true'
