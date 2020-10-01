@@ -16,7 +16,7 @@ try {
 
 const alt_text = { text: config.twitter.altText };
 
-export async function tweetImage() {
+export async function tweetImage(): Promise<void> {
   try {
     const { fileName, file } = await getRandomPicture();
 
@@ -27,7 +27,7 @@ export async function tweetImage() {
     });
     const mediaParams = {
       stringify_ids: true,
-      // @ts-ignore
+      // @ts-expect-error untyped twitter
       media_id: uploadedPicture.data.media_id_string,
       alt_text,
     };
@@ -36,16 +36,16 @@ export async function tweetImage() {
     const tweet = await t.post('statuses/update', {
       stringify_ids: true,
       status: config.twitter.tweetMessage,
-      // @ts-ignore
+      // @ts-expect-error untyped twitter
       media_ids: [uploadedPicture.data.media_id_string],
     });
 
     logger.info({
       status: config.twitter.tweetMessage,
-      // @ts-ignore
+      // @ts-expect-error untyped twitter
       mediaIds: uploadedPicture.data.media_id_string,
       image: fileName,
-      // @ts-ignore
+      // @ts-expect-error untyped twitter
       tweet: tweet.data.id_str,
     });
   } catch (e) {

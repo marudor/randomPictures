@@ -5,13 +5,6 @@ import path from 'path';
 import pino from 'pino';
 import serializers from 'pino-std-serializers';
 
-declare module 'worker_threads' {
-  export const SHARE_ENV: Symbol;
-  interface WorkerOptions {
-    env: Object | Symbol;
-  }
-}
-
 const writeWorker = new Worker(path.resolve(__dirname, 'logWriteThread.js'), {
   env: SHARE_ENV,
 });
@@ -28,7 +21,6 @@ if (process.env.NODE_ENV === 'test') {
 
 export const logger = pino(
   {
-    // @ts-ignore
     redact: {
       paths: ['req.remoteAddress', 'req.remotePort', 'res.statusCode'],
       remove: true,
@@ -40,7 +32,7 @@ export const logger = pino(
           const cookies = cookie.parse(req.headers.cookie);
 
           req.headers = {
-            // @ts-ignore
+            // @ts-expect-error untyped
             cookie: cookies,
             'user-agent': req.headers['user-agent'],
             referer: req.headers.referer,

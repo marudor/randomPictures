@@ -13,6 +13,7 @@ koa.use(userAgentOverride);
 // koa.use(loggerMiddleware);
 koa.use(Routes.routes());
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 const server = http.createServer(koa.callback());
 
 server.listen(config.webPort);

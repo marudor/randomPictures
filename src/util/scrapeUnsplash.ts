@@ -113,4 +113,4 @@ async function scrape() {
   }
 }
 
-scrape();
+void scrape();
