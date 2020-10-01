@@ -1,4 +1,4 @@
-FROM node:13-alpine as base
+FROM node:14-alpine as base
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json yarn.lock .yarnrc.yml /app/
@@ -12,12 +12,12 @@ COPY .babelrc.js /app/
 RUN yarn build
 
 FROM base as app
-RUN NODE_ENV=production yarn --immutable
+RUN yarn workspaces focus --production
 RUN yarn dlx modclean -r -a '*.ts|*.tsx'
 RUN rm -rf .yarn .yarnrc.yml
 COPY --from=build /app/dist/ /app/dist/
 
-FROM node:13-alpine
+FROM node:14-alpine
 ENV NODE_ENV=production
 RUN apk add --no-cache imagemagick
 USER node
