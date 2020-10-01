@@ -18,4 +18,8 @@ const server = http.createServer(koa.callback());
 
 server.listen(config.webPort);
 
+console.log('Server started');
+
 createAdmin();
+
+console.log('Admin server started');
