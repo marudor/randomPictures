@@ -1,5 +1,6 @@
 .env
 .in
+.envrc
 .DS_STORE
 yarn-error.log
 dist/

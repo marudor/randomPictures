@@ -1,7 +1,7 @@
 import Client from 'prom-client';
 import Koa from 'koa';
 
-export default (adminPort: number = 9000) => {
+export default (adminPort = 9000): void => {
   Client.collectDefaultMetrics();
   const koa = new Koa();
 

@@ -1,7 +1,7 @@
 import { getHash, getPictureFileName, getRandomPicture, getSpecificPicture } from './pictures';
 import { tweetImage } from './twitter';
 import config from './config';
-import KoaRouter from 'koa-router';
+import KoaRouter from '@koa/router';
 
 const router = new KoaRouter();
 const postUri = config.postUri;

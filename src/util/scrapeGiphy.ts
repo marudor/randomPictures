@@ -59,7 +59,7 @@ giphy.search(
       const id = result.id;
 
       if (url) {
-        downloadImage(url, id);
+        void downloadImage(url, id);
       } else {
         // eslint-disable-next-line no-console
         console.warn(result);

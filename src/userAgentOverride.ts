@@ -1,4 +1,5 @@
 import request from 'request';
+import type { Context, Next } from 'koa';
 
 let override: {
   [userAgent: string]: string;
@@ -17,7 +18,7 @@ if (process.env.OVERRIDE) {
   });
 }
 
-export default (ctx: any, next: Function): Promise<any> => {
+export default (ctx: Context, next: Next): Promise<any> => {
   if (override) {
     const redirectBaseUrl = override[ctx.header['user-agent']];
 

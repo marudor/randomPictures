@@ -27,14 +27,14 @@ async function getAvailablePictures() {
   return availablePictures;
 }
 
-export async function getPictureFileName() {
+export async function getPictureFileName(): Promise<string> {
   const availablePictures = await getAvailablePictures();
   const index = random.integer(0, availablePictures.length - 1);
 
   return availablePictures[index];
 }
 
-export async function getSpecificPicture(fileName: string, thumb: boolean = false): Promise<Picture> {
+export async function getSpecificPicture(fileName: string, thumb = false): Promise<Picture> {
   const splitted = fileName.split('.');
   const type = splitted[splitted.length - 1];
   const filePath = thumb ? `${picturePath}/thumb/${fileName}` : `${picturePath}/${fileName}`;
@@ -65,13 +65,13 @@ export async function getSpecificPicture(fileName: string, thumb: boolean = fals
   };
 }
 
-export async function getRandomPicture(thumb: boolean = false) {
+export async function getRandomPicture(thumb = false): Promise<Picture> {
   const fileName = await getPictureFileName();
 
   return getSpecificPicture(fileName, thumb);
 }
 
-export async function getHash() {
+export async function getHash(): Promise<string> {
   const availablePictures = await getAvailablePictures();
   const hashs = availablePictures.map((c) => crypto.createHash('sha256').update(c).digest('hex')).join();
 

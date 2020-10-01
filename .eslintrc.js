@@ -14,6 +14,11 @@ module.exports = {
     {
       files: ['**/*.ts', '**/*.tsx'],
       extends: ['marudor/typescript'],
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: ['./tsconfig.json'],
+        warnOnUnsupportedTypeScriptVersion: true,
+      },
     },
   ],
 };
