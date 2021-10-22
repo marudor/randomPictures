@@ -68,7 +68,7 @@ interface UnsplashResponse {
 
 async function getData(page: number): Promise<UnsplashResponse> {
   return (
-    await axios.get('https://unsplash.com/napi/landing_pages/images/animals/fox', {
+    await axios.get<UnsplashResponse>('https://unsplash.com/napi/landing_pages/images/animals/fox', {
       params: {
         page,
         per_page: 30,
