@@ -1,6 +1,5 @@
 module.exports = {
   extends: ['marudor/noReact'],
-  parser: 'babel-eslint',
   env: {
     browser: true,
     node: true,

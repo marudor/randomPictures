@@ -1,4 +1,4 @@
-FROM node:14-alpine as base
+FROM node:16-alpine as base
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json yarn.lock .yarnrc.yml /app/

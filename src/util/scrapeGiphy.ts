@@ -53,10 +53,10 @@ giphy.search(
       return;
     }
     res.data.forEach((result: any) => {
-      const url =
+      const url: string =
         (result.images.original.gif && result.images.original.gif.url) ||
         (result.images.original && result.images.original.url);
-      const id = result.id;
+      const id: string = result.id;
 
       if (url) {
         void downloadImage(url, id);

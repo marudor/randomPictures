@@ -16,6 +16,7 @@ koa.use(Routes.routes());
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 const server = http.createServer(koa.callback());
 
+console.log(config);
 server.listen(config.webPort);
 
 console.log('Server started');

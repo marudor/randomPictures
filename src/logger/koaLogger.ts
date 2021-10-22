@@ -32,55 +32,56 @@ const formatRequestMessage = (ctx: Context) => util.format('<-- %s %s', ctx.requ
 const formatResponseMessage = (ctx: Context, data: any) =>
   util.format('--> %s %s %d %sms', ctx.request.method, ctx.request.originalUrl, ctx.status, data.duration);
 
-export default (logger: Logger) => (ctx: Context, next: Next): Promise<void> => {
-  ctx.log = logger;
+export default (logger: Logger) =>
+  (ctx: Context, next: Next): Promise<void> => {
+    ctx.log = logger;
 
-  const reqId = ctx.request.get(headerName) || uuid.v4();
+    const reqId = ctx.request.get(headerName) || uuid.v4();
 
-  ctx[ctxProp] = reqId;
-  ctx.request[ctxProp] = reqId;
+    ctx[ctxProp] = reqId;
+    ctx.request[ctxProp] = reqId;
 
-  ctx.log = ctx.log.child({
-    [logField]: reqId,
-  });
+    ctx.log = ctx.log.child({
+      [logField]: reqId,
+    });
 
-  ctx.log.info(
-    {
-      req: ctx.req,
-    },
-    formatRequestMessage(ctx)
-  );
+    ctx.log.info(
+      {
+        req: ctx.req,
+      },
+      formatRequestMessage(ctx)
+    );
 
-  const startTime = Date.now();
-  let err: any;
+    const startTime = Date.now();
+    let err: any;
 
-  const onResponseFinished = () => {
-    const responseData = {
-      req: ctx.req,
-      res: ctx.res,
-      err: undefined,
-      duration: Date.now() - startTime,
+    const onResponseFinished = () => {
+      const responseData = {
+        req: ctx.req,
+        res: ctx.res,
+        err: undefined,
+        duration: Date.now() - startTime,
+      };
+
+      if (err) {
+        responseData.err = err;
+      }
+
+      const level = levelFromStatus(ctx.status);
+
+      ctx.log[level](responseData, formatResponseMessage(ctx, responseData));
+
+      // @ts-expect-error ???
+      ctx.log = null;
     };
 
-    if (err) {
-      responseData.err = err;
-    }
+    return next()
+      .catch((e) => {
+        err = e;
+      })
+      .then(() => {
+        onFinished(ctx.response.res, onResponseFinished);
 
-    const level = levelFromStatus(ctx.status);
-
-    ctx.log[level](responseData, formatResponseMessage(ctx, responseData));
-
-    // @ts-expect-error ???
-    ctx.log = null;
+        if (err) throw err;
+      });
   };
-
-  return next()
-    .catch((e) => {
-      err = e;
-    })
-    .then(() => {
-      onFinished(ctx.response.res, onResponseFinished);
-
-      if (err) throw err;
-    });
-};
