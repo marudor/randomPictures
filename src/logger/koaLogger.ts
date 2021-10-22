@@ -2,11 +2,11 @@ import * as uuid from 'uuid';
 import onFinished from 'on-finished';
 import util from 'util';
 import type { Context, Next } from 'koa';
-import type { Logger } from 'pino';
+import type P from 'pino';
 
 declare module 'koa' {
   interface BaseContext {
-    log: Logger;
+    log: P.Logger;
   }
   interface Request {
     reqId: string;
@@ -32,7 +32,7 @@ const formatRequestMessage = (ctx: Context) => util.format('<-- %s %s', ctx.requ
 const formatResponseMessage = (ctx: Context, data: any) =>
   util.format('--> %s %s %d %sms', ctx.request.method, ctx.request.originalUrl, ctx.status, data.duration);
 
-export default (logger: Logger) =>
+export default (logger: P.Logger) =>
   (ctx: Context, next: Next): Promise<void> => {
     ctx.log = logger;
 
