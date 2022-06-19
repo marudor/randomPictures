@@ -27,27 +27,27 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
+              name: {{ $fullName }}
+              port: http
     - host: www.{{ .Values.hostName }}
       http:
         paths:
           - path: /
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
+              name: {{ $fullName }}
+              port: http
     - host: {{ .Values.hostName2 }}
       http:
         paths:
           - path: /
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
+              name: {{ $fullName }}
+              port: http
     - host: www.{{ .Values.hostName2 }}
       http:
         paths:
           - path: /
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
+              name: {{ $fullName }}
+              port: http
 {{- end }}
