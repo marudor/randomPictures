@@ -10,13 +10,14 @@ jobs:
       - name: 'Deploy'
         # Parameters are pulled directly from the GitHub deployment event so the
         # configuration for the job here is very minimal.
-        uses: 'deliverybot/helm@v1'
+        uses: 'elseu/sdu-helm-deploy-action@0.0.9'
         with:
           helm: 'helm3'
           token: '${{ github.token }}'
           secrets: '${{ toJSON(secrets) }}'
           version: '${{ github.sha }}'
           chart: './charts/randomPictures'
+          timeout: '9m'
           values: |
             imageTag: '${{ github.sha }}'
         env:
