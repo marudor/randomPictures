@@ -29,7 +29,8 @@ spec:
             backend:
               service:
                 name: {{ $fullName }}
-                port: http
+                port:
+                  name: http
     - host: www.{{ .Values.hostName }}
       http:
         paths:
@@ -37,7 +38,8 @@ spec:
             backend:
               service:
                 name: {{ $fullName }}
-                port: http
+                port:
+                  name: http
     - host: {{ .Values.hostName2 }}
       http:
         paths:
@@ -45,7 +47,8 @@ spec:
             backend:
               service:
                 name: {{ $fullName }}
-                port: http
+                port:
+                  name: http
     - host: www.{{ .Values.hostName2 }}
       http:
         paths:
@@ -53,5 +56,6 @@ spec:
             backend:
               service:
                 name: {{ $fullName }}
-                port: http
+                port:
+                  name: http
 {{- end }}
