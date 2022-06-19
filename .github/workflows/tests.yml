@@ -70,6 +70,6 @@ jobs:
           task: deploy
           environment: beta
           required_contexts: docker,node
-          payload: '{"value_files": ["./config/beta.yml","./config/_common.yml"],"release": "fox-beta","namespace": "marudor","track": "stable"}'
+          payload: '{"value_files": ["./config/beta.yml","./config/_common.yml"],"release": "fox-beta","namespace": "pictures","track": "stable"}'
         env:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
