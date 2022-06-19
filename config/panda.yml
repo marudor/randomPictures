@@ -1,10 +1,11 @@
 hostName: pandarudor.de
+hostName2: panda.pics.marudor.de
 
 env:
   - name: ORIGIN
     value: pandarudor
   - name: ENABLE_TWITTER
-    value: "true"
+    value: 'true'
   - name: ACCESS_KEY
     valueFrom:
       secretKeyRef:

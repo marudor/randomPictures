@@ -1,10 +1,11 @@
 hostName: maurudor.de
+hostName2: cat.pics.marudor.de
 
 env:
   - name: ORIGIN
     value: maurudor
   - name: ENABLE_TWITTER
-    value: "true"
+    value: 'true'
   - name: ACCESS_KEY
     valueFrom:
       secretKeyRef:

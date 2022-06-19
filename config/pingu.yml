@@ -1,10 +1,11 @@
 hostName: pingudor.de
+hostName2: pinguin.pics.marudor.de
 
 env:
   - name: ORIGIN
     value: pingudor
   - name: ENABLE_TWITTER
-    value: "true"
+    value: 'true'
   - name: ACCESS_KEY
     valueFrom:
       secretKeyRef:

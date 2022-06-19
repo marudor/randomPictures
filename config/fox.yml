@@ -1,10 +1,11 @@
 hostName: foxrudor.de
+hostName2: fox.pics.marudor.de
 
 env:
   - name: ORIGIN
     value: foxrudor
   - name: ENABLE_TWITTER
-    value: "true"
+    value: 'true'
   - name: ACCESS_KEY
     valueFrom:
       secretKeyRef:
