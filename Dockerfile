@@ -1,20 +1,19 @@
 FROM node:18-alpine as base
 RUN mkdir -p /app
 WORKDIR /app
-COPY package.json yarn.lock .yarnrc.yml /app/
-COPY .yarn /app/.yarn
+COPY package.json pnpm-lock.yaml /app/
+RUN corepack enable
 
 FROM base as build
-RUN yarn --immutable
+RUN pnpm i --frozen-lockfile
 ENV NODE_ENV=production
 COPY src  /app/src/
 COPY .babelrc.js /app/
-RUN yarn build
+RUN pnpm build
 
 FROM base as app
-RUN yarn workspaces focus --production
-RUN yarn dlx modclean -r -a '*.ts|*.tsx'
-RUN rm -rf .yarn .yarnrc.yml
+RUN pnpm i -P
+RUN npx modclean -r -a '*.ts|*.tsx'
 COPY --from=build /app/dist/ /app/dist/
 
 FROM node:18-alpine
