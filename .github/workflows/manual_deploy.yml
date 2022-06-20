@@ -16,7 +16,7 @@ jobs:
         with:
           ref: ${{ github.sha }}
           task: deploy
-          environment: production
+          environment: ${{ github.event.inputs.environment }}
           required_contexts: docker,node
           payload: '{"value_files": ["./config/${{ github.event.inputs.environment }}.yml","./config/_common.yml"],"release": "${{ github.event.inputs.environment }}","namespace": "pictures","track": "stable"}'
         env:
