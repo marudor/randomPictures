@@ -1,4 +1,4 @@
-FROM node:16-alpine as base
+FROM node:18-alpine as base
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json yarn.lock .yarnrc.yml /app/
@@ -17,7 +17,7 @@ RUN yarn dlx modclean -r -a '*.ts|*.tsx'
 RUN rm -rf .yarn .yarnrc.yml
 COPY --from=build /app/dist/ /app/dist/
 
-FROM node:14-alpine
+FROM node:18-alpine
 ENV NODE_ENV=production
 RUN apk add --no-cache imagemagick
 USER node
