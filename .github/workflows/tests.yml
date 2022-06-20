@@ -22,16 +22,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Use Node.js 16
+      - name: Use Node.js 18
         uses: actions/setup-node@master
         with:
-          node-version: 16
+          node-version: 18
+      - name: corepack
+        run: corepack enable
       - name: install
-        run: yarn --immutable
+        run: pnpm i --frozen-lockfile
       - name: lint
-        run: yarn lint
+        run: pnpm lint
       - name: types
-        run: yarn tsc
+        run: pnpm tsc
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -44,24 +46,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           snapshot: 'true'
-  cacheTest:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: use Node.js 16
-        uses: actions/setup-node@master
-        with:
-          node-version: 16
-      - name: check
-        run: |
-          yarn install --check-cache
   createDeploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     needs:
       - docker
       - node
-      - cacheTest
     steps:
       - name: 'Create Deployment'
         uses: avakar/create-deployment@v1.0.1
