@@ -1,5 +1,4 @@
-hostName: pandarudor.de
-hostName2: panda.pics.marudor.de
+hostName: panda.pics.marudor.de
 
 env:
   - name: ORIGIN

@@ -1,5 +1,4 @@
-hostName: foxrudor.de
-hostName2: fox.pics.marudor.de
+hostName: fox.pics.marudor.de
 
 env:
   - name: ORIGIN

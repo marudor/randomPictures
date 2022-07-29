@@ -1,5 +1,4 @@
-hostName: tigrudor.de
-hostName2: tiger.pics.marudor.de
+hostName: tiger.pics.marudor.de
 
 env:
   - name: ORIGIN

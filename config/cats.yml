@@ -1,5 +1,4 @@
-hostName: maurudor.de
-hostName2: cat.pics.marudor.de
+hostName: cat.pics.marudor.de
 
 env:
   - name: ORIGIN

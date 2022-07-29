@@ -18,8 +18,6 @@ spec:
     - hosts:
         - {{ .Values.hostName }}
         - www.{{ .Values.hostName }}
-        - {{ .Values.hostName2 }}
-        - www.{{ .Values.hostName2 }}
       secretName: {{ $fullName }}
   rules:
     - host: {{ .Values.hostName }}
@@ -33,26 +31,6 @@ spec:
                 port:
                   name: http
     - host: www.{{ .Values.hostName }}
-      http:
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ $fullName }}
-                port:
-                  name: http
-    - host: {{ .Values.hostName2 }}
-      http:
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ $fullName }}
-                port:
-                  name: http
-    - host: www.{{ .Values.hostName2 }}
       http:
         paths:
           - path: /

@@ -1,5 +1,4 @@
-hostName: beta.foxrudor.de
-hostName2: beta.fox.pics.marudor.de
+hostName: beta.fox.pics.marudor.de
 
 env:
   - name: ORIGIN

@@ -17,6 +17,4 @@ spec:
   dnsNames:
     - {{ .Values.hostName }}
     - www.{{ .Values.hostName }}
-    - {{ .Values.hostName2 }}
-    - www.{{ .Values.hostName2 }}
 {{- end }}

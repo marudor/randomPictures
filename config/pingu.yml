@@ -1,5 +1,4 @@
-hostName: pingudor.de
-hostName2: pinguin.pics.marudor.de
+hostName: pinguin.pics.marudor.de
 
 env:
   - name: ORIGIN
