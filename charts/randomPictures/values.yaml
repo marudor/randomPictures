@@ -9,8 +9,9 @@ imageTag: latest
 imagePullPolicy: IfNotPresent
 imagePullSecret: github
 
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: ''
+fullnameOverride: ''
+pvcName: ''
 
 service:
   type: ClusterIP

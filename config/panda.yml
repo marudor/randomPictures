@@ -1,4 +1,5 @@
 hostName: panda.pics.marudor.de
+pvcName: panda
 
 env:
   - name: ORIGIN

@@ -1,4 +1,5 @@
 hostName: tiger.pics.marudor.de
+pvcName: tiger
 
 env:
   - name: ORIGIN

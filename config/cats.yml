@@ -1,4 +1,5 @@
 hostName: cat.pics.marudor.de
+pvcName: cat
 
 env:
   - name: ORIGIN

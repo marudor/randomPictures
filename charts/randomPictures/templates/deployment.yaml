@@ -19,11 +19,15 @@ spec:
         app.kubernetes.io/name: {{ include "randomPictures.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      volumes:
+      - name: pic-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvcName }}
       containers:
         - name: {{ .Chart.Name }}
           volumeMounts:
           - mountPath: /pictures
-            name: {{ include "randomPictures.name" . }}
+            name: pic-volume
           image: "{{ .Values.imageRepository }}:{{ .Values.imageTag }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           readinessProbe:
@@ -45,11 +49,6 @@ spec:
       imagePullSecrets:
       - name: {{ .Values.imagePullSecret }}
       {{ end }}
-      volumes:
-      - name: {{ include "randomPictures.name" . }}
-        hostPath:
-          path: {{ .Values.nodeImagePath }}
-          type: ""
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
