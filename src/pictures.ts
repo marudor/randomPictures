@@ -3,6 +3,7 @@ import { nodeCrypto, Random } from 'random-js';
 import { resize } from 'easyimage';
 import config from './config';
 import crypto from 'crypto';
+import os from 'os';
 import path from 'path';
 
 interface Picture {
@@ -13,6 +14,7 @@ interface Picture {
 
 const random = new Random(nodeCrypto);
 const picturePath = config.picturePath;
+const tmpPathPromise = fs.mkdtemp(path.resolve(os.tmpdir(), 'randomPictures'));
 
 fs.access(picturePath).catch((e: Error) => {
   throw new Error(`${picturePath} has to exist! ${e.toString()}`);
@@ -37,7 +39,10 @@ export async function getPictureFileName(): Promise<string> {
 export async function getSpecificPicture(fileName: string, thumb = false): Promise<Picture> {
   const splitted = fileName.split('.');
   const type = splitted[splitted.length - 1];
-  const filePath = thumb ? `${picturePath}/thumb/${fileName}` : `${picturePath}/${fileName}`;
+  const tmpPath = await tmpPathPromise;
+  const thumbPath = `${tmpPath}/thumb/${fileName}`;
+  const fullPath = `${picturePath}/${fileName}`;
+  const filePath = thumb ? thumbPath : fullPath;
 
   try {
     return {
@@ -52,8 +57,8 @@ export async function getSpecificPicture(fileName: string, thumb = false): Promi
   }
 
   const image = await resize({
-    src: path.resolve(`${picturePath}/${fileName}`),
-    dst: path.resolve(`${picturePath}/thumb/${fileName}`),
+    src: path.resolve(fullPath),
+    dst: path.resolve(thumbPath),
     width: 400,
   });
   const file = await fs.readFile(path.resolve(image.path));

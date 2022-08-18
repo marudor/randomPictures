@@ -6,7 +6,7 @@
   "packageManager": "pnpm@7.2.1",
   "scripts": {
     "build:babel": "babel src -x '.ts' --copy-files --out-dir dist",
-    "build:watch": "yarn build:babel --watch",
+    "build:watch": "pnpm build:babel --watch",
     "build": "run-s clean build:babel",
     "clean": "rimraf dist",
     "dev": "run-p build:watch start:watch",
