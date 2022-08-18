@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
 import onFinished from 'on-finished';
-import util from 'util';
+import util from 'node:util';
 import type { Context, Next } from 'koa';
 import type P from 'pino';
 

@@ -1,7 +1,7 @@
-import { SHARE_ENV, Worker } from 'worker_threads';
+import { SHARE_ENV, Worker } from 'node:worker_threads';
 import cookie from 'cookie';
 import koaLogger from './koaLogger';
-import path from 'path';
+import path from 'node:path';
 import pino from 'pino';
 import serializers from 'pino-std-serializers';
 

@@ -5,6 +5,9 @@ module.exports = {
     node: true,
     es6: true,
   },
+  rules: {
+    'unicorn/prefer-module': 0,
+  },
   globals: {
     PROD: false,
     SERVER: false,

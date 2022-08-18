@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
-import { exec } from 'child_process';
-import { promises as fs } from 'fs';
+import { exec } from 'node:child_process';
+import { promises as fs } from 'node:fs';
 import axios from 'axios';
 
 const execPromise = (command: string) =>
@@ -81,6 +81,7 @@ const folderWithDescription = 'foxes/';
 const folderWithoutDescription = 'maybeFox/';
 
 async function downloadAndSave(photos: UnsplashPhoto[]) {
+  // eslint-disable-next-line unicorn/no-array-reduce
   await photos.reduce(
     (prevPromise, currentPhoto) =>
       prevPromise.then(async () => {

@@ -1,4 +1,4 @@
-const { parentPort } = require('worker_threads');
+const { parentPort } = require('node:worker_threads');
 const axios = require('axios');
 const { Timber } = require('@timberio/node');
 const pinoPretty = require('pino-pretty');
@@ -29,8 +29,6 @@ if (process.env.NODE_ENV === 'production' && logglyToken) {
     }
   });
 }
-
-
 
 parentPort.on('message', (msg) => {
   const parsedMsg = JSON.parse(msg);

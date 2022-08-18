@@ -2,7 +2,7 @@ import 'core-js/stable';
 import { loggerMiddleware } from './logger';
 import config from './config';
 import createAdmin from './admin';
-import http from 'http';
+import http from 'node:http';
 import Koa from 'koa';
 import Routes from './controller';
 

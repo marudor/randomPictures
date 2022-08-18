@@ -1,5 +1,5 @@
-import { exec } from 'child_process';
-import { promises as fs } from 'fs';
+import { exec } from 'node:child_process';
+import { promises as fs } from 'node:fs';
 import GiphyApi from 'giphy-api';
 
 const giphy = GiphyApi(process.env.GIPHY_API);
@@ -52,6 +52,7 @@ giphy.search(
 
       return;
     }
+    // eslint-disable-next-line unicorn/no-array-for-each
     res.data.forEach((result: any) => {
       const url: string =
         (result.images.original.gif && result.images.original.gif.url) ||

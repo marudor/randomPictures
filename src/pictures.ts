@@ -1,10 +1,10 @@
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 import { nodeCrypto, Random } from 'random-js';
 import { resize } from 'easyimage';
 import config from './config';
-import crypto from 'crypto';
-import os from 'os';
-import path from 'path';
+import crypto from 'node:crypto';
+import os from 'node:os';
+import path from 'node:path';
 
 interface Picture {
   fileName: string;
@@ -78,7 +78,7 @@ export async function getRandomPicture(thumb = false): Promise<Picture> {
 
 export async function getHash(): Promise<string> {
   const availablePictures = await getAvailablePictures();
-  const hashs = availablePictures.map((c) => crypto.createHash('sha256').update(c).digest('hex')).join();
+  const hashs = availablePictures.map((c) => crypto.createHash('sha256').update(c).digest('hex')).join(',');
 
   return crypto.createHash('sha256').update(hashs).digest('hex');
 }
