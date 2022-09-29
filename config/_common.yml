@@ -16,16 +16,6 @@ baseEnv:
       secretKeyRef:
         name: common-config
         key: consumer_secret
-  - name: LOGGLY_SUBDOMAIN
-    valueFrom:
-      secretKeyRef:
-        name: common-config
-        key: loggly_subdomain
-  - name: LOGGLY_TOKEN
-    valueFrom:
-      secretKeyRef:
-        name: common-config
-        key: loggly_token
 
 ingress:
   enabled: true
