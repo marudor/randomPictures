@@ -1,11 +1,9 @@
 hostName: pinguin.pics.marudor.de
-pvcName: pingu
+pvcName: pingu2
 
 env:
   - name: ORIGIN
     value: pingudor
-  - name: ENABLE_TWITTER
-    value: 'true'
   - name: ACCESS_KEY
     valueFrom:
       secretKeyRef:

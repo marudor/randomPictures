@@ -1,11 +1,9 @@
 hostName: fox.pics.marudor.de
-pvcName: fox
+pvcName: fox2
 
 env:
   - name: ORIGIN
     value: foxrudor
-  - name: ENABLE_TWITTER
-    value: 'true'
   - name: ACCESS_KEY
     valueFrom:
       secretKeyRef:

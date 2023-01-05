@@ -1,11 +1,9 @@
 hostName: tiger.pics.marudor.de
-pvcName: tiger
+pvcName: tiger2
 
 env:
   - name: ORIGIN
     value: tigrudor
-  - name: ENABLE_TWITTER
-    value: 'true'
   - name: ACCESS_KEY
     valueFrom:
       secretKeyRef:

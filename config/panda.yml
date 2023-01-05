@@ -1,11 +1,9 @@
 hostName: panda.pics.marudor.de
-pvcName: panda
+pvcName: panda2
 
 env:
   - name: ORIGIN
     value: pandarudor
-  - name: ENABLE_TWITTER
-    value: 'true'
   - name: ACCESS_KEY
     valueFrom:
       secretKeyRef:

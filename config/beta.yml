@@ -1,5 +1,5 @@
 hostName: beta.fox.pics.marudor.de
-pvcName: fox
+pvcName: fox2
 
 env:
   - name: ORIGIN
