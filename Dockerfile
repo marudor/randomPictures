@@ -1,4 +1,4 @@
-FROM node:18-alpine as base
+FROM node:19-alpine as base
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json pnpm-lock.yaml /app/
@@ -16,7 +16,7 @@ RUN pnpm i -P
 RUN npx modclean -r -a '*.ts|*.tsx'
 COPY --from=build /app/dist/ /app/dist/
 
-FROM node:18-alpine
+FROM node:19-alpine
 ENV NODE_ENV=production
 RUN apk add --no-cache imagemagick
 USER node
