@@ -38,14 +38,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       - name: docker
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
-          name: marudor/randompictures/app:${{ github.sha }}
-          username: marudor
+          name: marudor/randompictures/app
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          snapshot: 'true'
+          registry: ghcr.io
+          platforms: linux/amd64,linux/arm64
+          tags: 'latest,${{ github.sha }}'
   createDeploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
