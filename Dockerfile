@@ -19,9 +19,9 @@ COPY --from=build /app/dist/ /app/dist/
 FROM node:19-alpine
 ENV NODE_ENV=production
 RUN apk add --no-cache imagemagick
-USER node
 WORKDIR /app
 COPY --from=app /app /app
 COPY package.json pnpm-lock.yaml /app/
 RUN corepack enable && pnpm rb
+USER node
 CMD [ "node", "dist/index.js" ]
