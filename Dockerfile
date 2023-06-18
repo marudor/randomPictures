@@ -1,4 +1,4 @@
-FROM node:19-alpine as base
+FROM --platform=$BUILDPLATFORM node:19-alpine as base
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json pnpm-lock.yaml /app/
@@ -22,4 +22,6 @@ RUN apk add --no-cache imagemagick
 USER node
 WORKDIR /app
 COPY --from=app /app /app
+COPY package.json pnpm-lock.yaml /app/
+RUN corepack enable && pnpm rb
 CMD [ "node", "dist/index.js" ]

@@ -1,5 +1,5 @@
 hostName: pinguin.pics.marudor.de
-pvcName: pingu2
+pvcName: pingu
 
 env:
   - name: ORIGIN
