@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'where to deploy to? (cats, fox, panda, pingu, tiger)'
+        description: 'where to deploy to? (cats, fox, panda, tiger)'
         required: true
 
 jobs:
